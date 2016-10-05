@@ -9,10 +9,26 @@ const models = require('../../database');
  */
 
 exports.register = function (server, options, next) {
-
-  next();
+	server.route({
+		method:'POST',
+		path:'/tweets',
+		handler:(request, reply) => {
+		const data = request.payload || request.params || request.body;
+		models.tweet.create(data)
+			.then(result => {
+				return reply(result)
+			})
+			.catch(err => {
+				return reply({
+					error : err.message
+				})
+			})
+		}
+	})
+	next();
 };
 
+
 exports.register.attributes = {
-  name: 'tweets'
+	name: 'tweets'
 };
