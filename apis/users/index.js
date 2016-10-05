@@ -9,7 +9,26 @@ const models = require('../../database');
  */
 
 exports.register = function (server, options, next) {
+	server.route({
+		method: 'POST',
+		path: '/users',
+		handler: (request, reply) => {
+			const data =
+				request.payload ||
+				request.params ||
+				request.body;
 
+			models.user.create(data)
+				.then(result => {
+					return reply(result)
+				})
+				.catch(err => {
+					return reply({
+						error: err.message
+					})
+				})
+		}
+	})
   next();
 };
 

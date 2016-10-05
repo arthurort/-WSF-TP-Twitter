@@ -2,12 +2,12 @@
   "development": {
     "dialect": "mysql",
     "host": "localhost",
-    "user": "root",
+    "database": "nodejs",
+    "username": "wsf_cours",
     "password": "",
-    "port": 3306,
-    "database": "wsf"
+    "port": 3306
   },
-  "production": {
-
+  "production":{
+    "key": "value prod"
   }
 }
