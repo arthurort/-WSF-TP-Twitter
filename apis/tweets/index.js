@@ -41,6 +41,22 @@ exports.register = function (server, options, next) {
 			})
 		}
 	})
+
+	server.route({
+		method: 'GET',
+		path: '/tweets/{id}',
+		handler: (request, reply) => { 
+		models.tweet.findById(encodeURIComponent(request.params.id))
+			.then(result => {
+				return reply(result)
+			})
+			.catch(err => {
+				return reply({
+					error: err.message
+				})
+			})
+		}
+	})
 	next();
 };
 

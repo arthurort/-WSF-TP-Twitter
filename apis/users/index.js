@@ -41,6 +41,22 @@ exports.register = function (server, options, next) {
 			})
 		}
 	})
+
+	server.route({
+		method: 'GET',
+		path: '/users/{id}',
+		handler: (request, reply) => { 
+		models.user.findById(encodeURIComponent(request.params.id))
+			.then(result => {
+				return reply(result)
+			})
+			.catch(err => {
+				return reply({
+					error: err.message
+				})
+			})
+		}
+	})
 	next();
 };
 
