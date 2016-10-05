@@ -25,6 +25,22 @@ exports.register = function (server, options, next) {
 			})
 		}
 	})
+
+	server.route({
+		method: 'GET',
+		path: '/tweets',
+		handler: (request, reply) => {
+		models.tweet.findAll()
+			.then(result => {
+				return reply(result)
+			})
+			.catch(err => {
+				return reply({
+					error: err.message
+				})
+			})
+		}
+	})
 	next();
 };
 
