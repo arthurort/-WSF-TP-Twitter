@@ -55,7 +55,7 @@ Object.keys(models).forEach(modelName => {
  * export the models.
  */
 
-// if (process.env.DB_SYNC) {
+if (process.env.DB_SYNC) {
   database.sync({force: true})
     .then(() => {
       console.log('Syncing the database ...');
@@ -63,6 +63,6 @@ Object.keys(models).forEach(modelName => {
     .catch(err => {
       throw new Error(err);
     });
-// } else {
-//   module.exports = models;
-// }
+} else {
+  module.exports = models;
+}
