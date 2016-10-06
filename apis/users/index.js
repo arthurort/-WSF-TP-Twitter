@@ -45,8 +45,9 @@ exports.register = function (server, options, next) {
 	server.route({
 		method: 'GET',
 		path: '/users/{id}',
-		handler: (request, reply) => { 
-		models.user.findById(encodeURIComponent(request.params.id))
+		handler: (request, reply) => {
+		const data = request.payload || request.params || request.body; 
+		models.user.findById(data.id)
 			.then(result => {
 				return reply(result)
 			})
@@ -57,6 +58,27 @@ exports.register = function (server, options, next) {
 			})
 		}
 	})
+
+	// server.route({
+	// 	method: 'PUT',
+	// 	path: '/users/{id}',
+	// 	handler: (request, reply) => {
+	// 	const data = request.payload || request.params || request.body;
+	// 	models.user.update({
+	// 		where: {
+	// 			id: data.id
+	// 		}
+	// 	},)
+	// 		.then(result => {
+	// 			return reply(result)
+	// 		})
+	// 		.catch(err => {
+	// 			return reply({
+	// 				error: err.message
+	// 			})
+	// 		})
+	// 	}
+	// })
 	next();
 };
 

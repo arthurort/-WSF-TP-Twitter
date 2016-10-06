@@ -45,8 +45,9 @@ exports.register = function (server, options, next) {
 	server.route({
 		method: 'GET',
 		path: '/tweets/{id}',
-		handler: (request, reply) => { 
-		models.tweet.findById(encodeURIComponent(request.params.id))
+		handler: (request, reply) => {
+		const data = request.payload || request.params || request.body;
+		models.tweet.findById(data.id)
 			.then(result => {
 				return reply(result)
 			})
