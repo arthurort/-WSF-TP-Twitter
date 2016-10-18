@@ -99,6 +99,26 @@ exports.register = function (server, options, next) {
 			})
 		}
 	})
+
+	server.route({
+    	method: 'DELETE',
+		path:'/tweets/{id}',
+		handler:  (request, reply) => {
+		models.tweet.destroy({
+			where: {
+				id: request.params.id
+			}
+		})
+			.then(result => {
+				return reply('Deleted successfully !')
+			})
+			.catch(err => {
+				return reply({
+					error:err.message
+				})
+			})
+		}
+	})
 	next();
 };
 

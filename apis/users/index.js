@@ -78,6 +78,26 @@ exports.register = function (server, options, next) {
 			})
 		}
 	})
+
+	server.route({
+    	method: 'DELETE',
+		path:'/users/{id}',
+		handler:  (request, reply) => {
+		models.user.destroy({
+			where: {
+				id: request.params.id
+			}
+		})
+			.then(result => {
+				return reply('User destroyed')
+			})
+			.catch(err => {
+				return reply({
+					error:err.message
+				})
+			})
+		}
+	})
 	next();
 };
 

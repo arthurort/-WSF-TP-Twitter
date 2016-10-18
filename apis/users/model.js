@@ -38,6 +38,13 @@ module.exports = (database, types) => {
       }
     }
   }, {
-    underscored: true
+    underscored: true,
+    beforeDestroy: (user) => {
+      database.models.tweet.destroy({
+        where: {
+          user_id: user.id
+        }
+      })
+    }
   });
 };
