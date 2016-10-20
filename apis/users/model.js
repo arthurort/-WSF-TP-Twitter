@@ -39,6 +39,14 @@ module.exports = (database, types) => {
     }
   }, {
     underscored: true,
+    classMethods: {
+      associate: models => {
+        models.user.belongsToMany(models.user, {
+          as: 'followers',
+          through: 'users__following'
+        })
+      }
+    },
     beforeDestroy: (user) => {
       database.models.tweet.destroy({
         where: {

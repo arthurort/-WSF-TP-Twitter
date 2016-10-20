@@ -98,6 +98,66 @@ exports.register = function (server, options, next) {
 			})
 		}
 	})
+
+	server.route({
+		method: 'GET',
+		path:'/users/{id}/followers',
+		handler:  (request, reply) => {
+		models.user.findAll({
+			where: {
+				id: request.params.id
+			}
+		})
+			.then(result => {
+				return reply(result)
+			})
+			.catch(err => {
+				return reply({
+					error:err.message
+				})
+			})
+		}
+	})
+
+	// server.route({
+	// 	method: 'POST',
+	// 	path:'/users/{id}/followers',
+	// 	handler:  (request, reply) => {
+	// 	models.user.findAll({
+	// 		where: {
+	// 			id: request.params.id
+	// 		}
+	// 	})
+	// 		.then(result => {
+	// 			return reply(result)
+	// 		})
+	// 		.catch(err => {
+	// 			return reply({
+	// 				error:err.message
+	// 			})
+	// 		})
+	// 	}
+	// })
+
+	// server.route({
+	// 	method: 'GET',
+	// 	path:'/users/{id}/followers',
+	// 	handler:  (request, reply) => {
+	// 	models.user.findAll({
+	// 		where: {
+	// 			id: request.params.id
+	// 		}
+	// 	})
+	// 		.then(result => {
+	// 			return reply(result)
+	// 		})
+	// 		.catch(err => {
+	// 			return reply({
+	// 				error:err.message
+	// 			})
+	// 		})
+	// 	}
+	// })
 	next();
 };
 
