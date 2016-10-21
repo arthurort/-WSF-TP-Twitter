@@ -45,14 +45,21 @@ module.exports = (database, types) => {
           as: 'followers',
           through: 'users__following'
         })
+      },
+      associate: models => {
+        models.user.hasMany(models.tweet, {
+          onDelete: 'cascade'
+        });
       }
     },
-    beforeDestroy: (user) => {
-      database.models.tweet.destroy({
-        where: {
-          user_id: user.id
-        }
-      })
+    hooks: {
+      beforeDestroy: (user) => {
+        database.models.tweet.destroy({
+          where: {
+            user_id: user.id
+          }
+        })
+      }
     }
   });
 };
